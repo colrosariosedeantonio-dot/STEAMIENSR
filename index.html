@@ -1,5 +1,6 @@
 <!DOCTYPE html>
 <html lang="es">
+
 <head>
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
@@ -346,8 +347,13 @@
       font-weight: 600;
     }
 
-    .feedback.correct { color: var(--success); }
-    .feedback.incorrect { color: var(--danger); }
+    .feedback.correct {
+      color: var(--success);
+    }
+
+    .feedback.incorrect {
+      color: var(--danger);
+    }
 
     /* EVIDENCIA MODE */
     #evidence-view {
@@ -356,7 +362,7 @@
       border-radius: var(--radius);
       padding: 30px;
       border: 2px solid var(--primary);
-      box-shadow: 0 10px 25px rgba(0,0,0,0.1);
+      box-shadow: 0 10px 25px rgba(0, 0, 0, 0.1);
     }
 
     .evidence-header {
@@ -389,7 +395,8 @@
       font-size: 0.85rem;
     }
 
-    .rubric-table th, .rubric-table td {
+    .rubric-table th,
+    .rubric-table td {
       border: 1px solid #cbd5e1;
       padding: 8px;
       text-align: left;
@@ -405,9 +412,12 @@
       body * {
         visibility: hidden;
       }
-      #evidence-view, #evidence-view * {
+
+      #evidence-view,
+      #evidence-view * {
         visibility: visible;
       }
+
       #evidence-view {
         position: absolute;
         left: 0;
@@ -417,842 +427,1130 @@
         box-shadow: none;
         padding: 0;
       }
+
       .no-print {
         display: none !important;
       }
     }
   </style>
 </head>
+
 <body>
 
-<div class="container">
+  <div class="container">
 
-  <!-- VISTA PRINCIPAL DE LA GUÍA -->
-  <div id="main-guide">
-    
-    <header>
-      <h1>🤖 01 TI 8°-9°: ROBOTS SUMO</h1>
-      <p>Apropio principios y conceptos de la tecnología y la informática, presentes en diversos hitos de la tecnología que le han permitido al hombre transformar el entorno.</p>
-      <div class="meta-grid">
-        <div class="meta-item"><strong>Guía:</strong> 01</div>
-        <div class="meta-item"><strong>Área:</strong> Tecnología e Info. (TI)</div>
-        <div class="meta-item"><strong>Grado:</strong> 8°-9°</div>
-        <div class="meta-item"><strong>Período:</strong> 4°</div>
-        <div class="meta-item"><strong>Duración:</strong> 55 min</div>
-      </div>
-    </header>
+    <!-- VISTA PRINCIPAL DE LA GUÍA -->
+    <div id="main-guide">
 
-    <!-- BARRA SUPERIOR DE CONTROL -->
-    <div class="top-bar">
-      <div class="progress-box">
-        <div style="display: flex; justify-content: space-between; font-size: 0.85rem; margin-bottom: 4px; font-weight: 600;">
-          <span>Progreso de Guía</span>
-          <span id="progress-text">0%</span>
+      <header>
+        <h1>🤖 01 TI 8°-9°: ROBOTS SUMO</h1>
+        <p>Apropio principios y conceptos de la tecnología y la informática, presentes en diversos hitos de la
+          tecnología que le han permitido al hombre transformar el entorno.</p>
+        <div class="meta-grid">
+          <div class="meta-item"><strong>Guía:</strong> 01</div>
+          <div class="meta-item"><strong>Área:</strong> Tecnología e Info. (TI)</div>
+          <div class="meta-item"><strong>Grado:</strong> 8°-9°</div>
+          <div class="meta-item"><strong>Período:</strong> 4°</div>
+          <div class="meta-item"><strong>Duración:</strong> 55 min</div>
         </div>
-        <div class="progress-bar-bg">
-          <div id="progress-fill" class="progress-bar-fill"></div>
-        </div>
-      </div>
-      <div style="display: flex; gap: 8px;">
-        <button class="btn btn-secondary" onclick="saveData()">💾 Guardar</button>
-        <button class="btn btn-danger" onclick="resetData()">🔄 Reiniciar</button>
-        <button class="btn btn-evidence" onclick="showEvidenceMode()">📑 Modo Evidencia</button>
-      </div>
-    </div>
+      </header>
 
-    <!-- 1. REGISTRO DEL ESTUDIANTE -->
-    <section class="card">
-      <h2 class="card-title">👤 1. Registro del Estudiante</h2>
-      <div style="display: grid; grid-template-columns: repeat(auto-fit, minmax(200px, 1fr)); gap: 15px;">
-        <div class="form-group">
-          <label for="student-name">Nombre Completo *</label>
-          <input type="text" id="student-name" class="form-control" placeholder="Ej: Juan Pérez" oninput="saveData()">
+      <!-- BARRA SUPERIOR DE CONTROL -->
+      <div class="top-bar">
+        <div class="progress-box">
+          <div
+            style="display: flex; justify-content: space-between; font-size: 0.85rem; margin-bottom: 4px; font-weight: 600;">
+            <span>Progreso de Guía</span>
+            <span id="progress-text">0%</span>
+          </div>
+          <div class="progress-bar-bg">
+            <div id="progress-fill" class="progress-bar-fill"></div>
+          </div>
         </div>
-        <div class="form-group">
-          <label for="student-grade">Grado *</label>
-          <select id="student-grade" class="form-control" onchange="saveData()">
-            <option value="8°">8°</option>
-            <option value="9°">9°</option>
-          </select>
-        </div>
-        <div class="form-group">
-          <label for="student-pc">Equipo / PC (Opcional)</label>
-          <input type="text" id="student-pc" class="form-control" placeholder="Ej: Sala 1 - PC 05" oninput="saveData()">
+        <div style="display: flex; gap: 8px;">
+          <button class="btn btn-secondary" onclick="saveData()">💾 Guardar</button>
+          <button class="btn btn-danger" onclick="resetData()">🔄 Reiniciar</button>
+          <button class="btn btn-evidence" onclick="showEvidenceMode()">📑 Modo Evidencia</button>
         </div>
       </div>
-    </section>
 
-    <!-- 2. LECTURA COLECTIVA -->
-    <section class="card">
-      <h2 class="card-title">📖 2. Lectura Colectiva: El Arte del Combate Robótico</h2>
-      
-      <p class="reading-p">En Tokio, Japón, durante la década de 1980, el profesor Hiroshi Noji observaba con fascinación los combates tradicionales de lucha Sumo. Fascinado por la combinación de fuerza, equilibrio y estrategia rápida, planteó una pregunta revolucionaria: ¿Sería posible recrear este milenario arte marcial utilizando únicamente robots autónomos construidos por estudiantes e ingenieros?</p>
+      <!-- 1. REGISTRO DEL ESTUDIANTE -->
+      <section class="card" id="step-1">
+        <h2 class="card-title">👤 1. Registro del Estudiante</h2>
+        <div style="display: grid; grid-template-columns: repeat(auto-fit, minmax(200px, 1fr)); gap: 15px;">
+          <div class="form-group">
+            <label for="student-grade">Grado *</label>
+            <select id="student-grade" class="form-control"
+              onchange="updateStudentList(); updateProgress(); saveData()">
+              <option value="">Selecciona primero un curso</option>
+              <option value="801AN">801 AN</option>
+              <option value="801">801 PPAL</option>
+              <option value="802">802 PPAL</option>
+              <option value="901AN">901 AN</option>
+              <option value="901">901 PPAL</option>
+              <option value="902">902 PPAL</option>
+            </select>
+          </div>
+          <div class="form-group">
+            <label for="student-name">Nombre Completo *</label>
+            <select id="student-name" class="form-control" onchange="updateProgress(); saveData()" disabled>
+              <option value="">Selecciona primero un curso</option>
+            </select>
+          </div>
+        </div>
+      </section>
 
-      <p class="reading-p">Así nació la robótica de competición Sumo y Minisumo[cite: 1]. En esta disciplina, dos robots totalmente autónomos se enfrentan dentro de una plataforma circular llamada <strong>Dohyo</strong>[cite: 1]. El objetivo no es destruir al rival, sino aplicar principios físicos y algorítmicos para desplazar o empujar al oponente fuera del área de combate[cite: 1].</p>
+      <!-- 2. LECTURA COLECTIVA -->
+      <section class="card" id="step-2" hidden>
+        <h2 class="card-title">📖 2. Lectura Colectiva: El Arte del Combate Robótico</h2>
 
-      <p class="reading-p">A diferencia de los vehículos a control remoto, un robot Sumo debe pensar y actuar por sí solo mediante sensores y programación previa[cite: 1]. El ring o Dohyo es una pista negra bordada por una franja blanca exterior de alto contraste[cite: 1]. Esta delimitación cromática no es estética: constituye la frontera de seguridad que los sensores ópticos del robot deben detectar para evitar salir del área[cite: 1].</p>
+        <p class="reading-p">En Tokio, Japón, durante la década de 1980, el profesor Hiroshi Noji observaba con
+          fascinación los combates tradicionales de lucha Sumo. Fascinado por la combinación de fuerza, equilibrio y
+          estrategia rápida, planteó una pregunta revolucionaria: ¿Sería posible recrear este milenario arte marcial
+          utilizando únicamente robots autónomos construidos por estudiantes e ingenieros?</p>
 
-      <p class="reading-p">Para lograr la victoria, los diseñadores integran dos sistemas clave de percepción: los <em>sensores de línea</em> (ubicados en la parte inferior apuntando al piso) para mantenerse dentro del Dohyo, y los <em>sensores de distancia</em> (como ultrasonido o infrarrojos, ubicados al frente) para rastrear y ubicar al oponente.</p>
+        <p class="reading-p">Así nació la robótica de competición Sumo y Minisumo. En esta disciplina, dos
+          robots totalmente autónomos se enfrentan dentro de una plataforma circular llamada
+          <strong>Dohyo</strong>. El objetivo no es destruir al rival, sino aplicar principios físicos y
+          algorítmicos para desplazar o empujar al oponente fuera del área de combate.
+        </p>
 
-      <div class="highlight-box">
-        <strong>⚡ Regla de Oro y Seguridad:</strong> Los combates se disputan a 3 rounds de máximo 3 minutos[cite: 1]. Cada robot debe contar con un tiempo de retardo obligatorio de <strong>5 segundos</strong> tras ser encendido antes de iniciar cualquier movimiento, garantizando la seguridad de los jueces y competidores.
-      </div>
+        <p class="reading-p">A diferencia de los vehículos a control remoto, un robot Sumo debe pensar y actuar por sí
+          solo mediante sensores y programación previa. El ring o Dohyo es una pista negra bordada por una
+          franja blanca exterior de alto contraste. Esta delimitación cromática no es estética: constituye la
+          frontera de seguridad que los sensores ópticos del robot deben detectar para evitar salir del área.
+        </p>
 
-      <p class="reading-p">Existen diferentes categorías según el peso y las dimensiones del robot[cite: 1]. La categoría reina es el <strong>Sumo Estándar</strong> (hasta 3 kg y 20x20 cm), mientras que la categoría educativa más popular es el <strong>Minisumo</strong> (máximo 500 gramos y 10x10 cm sin límite de altura). A pesar de su tamaño reducido, los Minisumos alcanzan velocidades y aceleraciones impresionantes.</p>
+        <p class="reading-p">Para lograr la victoria, los diseñadores integran dos sistemas clave de percepción: los
+          <em>sensores de línea</em> (ubicados en la parte inferior apuntando al piso) para mantenerse dentro del Dohyo,
+          y los <em>sensores de distancia</em> (como ultrasonido o infrarrojos, ubicados al frente) para rastrear y
+          ubicar al oponente.
+        </p>
 
-      <p class="reading-p">El éxito estratégico no depende solo de la potencia de los motores, sino de la masa, la adherencia de las llantas de silicona y el diseño en cuña metálica que permite meterse debajo del chasis del rival para quitarle tracción. ¡Un verdadero duelo de física, electrónica y estrategia algorítmica!</p>
-    </section>
+        <div class="highlight-box">
+          <strong>⚡ Regla de Oro y Seguridad:</strong> Los combates se disputan a 3 rounds de máximo 3 minutos.
+          Cada robot debe contar con un tiempo de retardo obligatorio de <strong>5 segundos</strong> tras ser encendido
+          antes de iniciar cualquier movimiento, garantizando la seguridad de los jueces y competidores.
+        </div>
 
-    <!-- 3. CORNELL INDIVIDUAL -->
-    <section class="card">
-      <h2 class="card-title">📒 3. Cornell Individual en el Cuaderno</h2>
-      <p>Toma tu cuaderno de Tecnología e Informática y elabora un resumen analítico aplicando la metodología Cornell sobre la lectura de Robots Sumo.</p>
-      
-      <div style="margin: 15px 0;">
+        <p class="reading-p">Existen diferentes categorías según el peso y las dimensiones del robot. La
+          categoría reina es el <strong>Sumo Estándar</strong> (hasta 3 kg y 20x20 cm), mientras que la categoría
+          educativa más popular es el <strong>Minisumo</strong> (máximo 500 gramos y 10x10 cm sin límite de altura). A
+          pesar de su tamaño reducido, los Minisumos alcanzan velocidades y aceleraciones impresionantes.</p>
+
+        <p class="reading-p">El éxito estratégico no depende solo de la potencia de los motores, sino de la masa, la
+          adherencia de las llantas de silicona y el diseño en cuña metálica que permite meterse debajo del chasis del
+          rival para quitarle tracción. ¡Un verdadero duelo de física, electrónica y estrategia algorítmica!</p>
+
         <label style="display: flex; align-items: center; gap: 10px; cursor: pointer; font-weight: 600;">
-          <input type="checkbox" id="cornell-check" style="width: 20px; height: 20px;" onchange="updateProgress(); saveData();">
-          <span>Ya terminé mi esquema Cornell en el cuaderno</span>
+          <input type="checkbox" id="reading-check" onchange="updateProgress(); saveData();">
+          <span>Ya terminé de leer este punto</span>
         </label>
-      </div>
+      </section>
 
-      <details>
-        <summary>❓ ¿Cómo hago el método Cornell? (Ver Guía y Ejemplo)</summary>
-        <p style="margin-top: 8px; font-size: 0.9rem;">Divide tu hoja de cuaderno en tres secciones: una columna izquierda estrecha para preguntas o palabras clave, una columna derecha ancha para las notas principales, y una franja inferior para el resumen sintetizado.</p>
-        
-        <div class="cornell-demo">
-          <div>
-            <strong>Preguntas Clave (Izquierda):</strong>
-            <ul style="font-size: 0.82rem; padding-left: 15px; margin-top: 5px;">
-              <li>¿Qué es el Dohyo?</li>
-              <li>¿Cómo evitan salir de la pista?</li>
-              <li>¿Cuál es la regla de seguridad inicial?</li>
-            </ul>
+      <!-- 3. CORNELL INDIVIDUAL -->
+      <section class="card" id="step-3" hidden>
+        <h2 class="card-title">📒 3. Cornell Individual en el Cuaderno</h2>
+        <p>Toma tu cuaderno de Tecnología e Informática y elabora un resumen analítico aplicando la metodología Cornell
+          sobre la lectura de Robots Sumo.</p>
+
+        <details open>
+          <summary>❓ ¿Cómo hago el método Cornell? (Ver Guía y Ejemplo)</summary>
+          <p style="margin-top: 8px; font-size: 0.9rem;">Divide tu hoja de cuaderno en tres secciones: una columna
+            izquierda estrecha para preguntas o palabras clave, una columna derecha ancha para las notas principales, y
+            una franja inferior para el resumen sintetizado.</p>
+
+          <div class="cornell-demo">
+            <div>
+              <strong>Preguntas Clave (Izquierda):</strong>
+              <ul style="font-size: 0.82rem; padding-left: 15px; margin-top: 5px;">
+                <li>¿Qué es el Dohyo?</li>
+                <li>¿Cómo evitan salir de la pista?</li>
+                <li>¿Cuál es la regla de seguridad inicial?</li>
+              </ul>
+            </div>
+            <div>
+              <strong>Apuntes / Notas (Derecha):</strong>
+              <p style="font-size: 0.82rem;">• El <b>Dohyo</b> es la pista circular negra con borde blanco donde se
+                realiza el combate.<br>
+                • Usan <b>sensores de línea</b> inferiores para detectar el borde blanco y no salirse.<br>
+                • Tienen un <b>retardo obligatorio de 5 segundos</b> tras el encendido antes de iniciar el movimiento
+                por seguridad.</p>
+            </div>
+            <div class="cornell-demo-summary">
+              <strong>Resumen Propio (Abajo):</strong>
+              <p style="font-size: 0.82rem;">Los robots sumo son sistemas autónomos que compiten en un Dohyo.
+                Requieren sensores ópticos e infrarrojos para ubicar al rival y detectar bordes, combinando estrategia
+                física, código y normas strictly de seguridad como la espera de 5 segundos.</p>
+            </div>
           </div>
-          <div>
-            <strong>Apuntes / Notas (Derecha):</strong>
-            <p style="font-size: 0.82rem;">• El <b>Dohyo</b> es la pista circular negra con borde blanco donde se realiza el combate[cite: 1].<br>
-            • Usan <b>sensores de línea</b> inferiores para detectar el borde blanco y no salirse.<br>
-            • Tienen un <b>retardo obligatorio de 5 segundos</b> tras el encendido antes de iniciar el movimiento por seguridad.</p>
+        </details>
+        <div style="margin: 15px 0;">
+          <label style="display: flex; align-items: center; gap: 10px; cursor: pointer; font-weight: 600;">
+            <input type="checkbox" id="cornell-check" style="width: 20px; height: 20px;"
+              onchange="updateProgress(); saveData();">
+            <span>Ya terminé mi esquema Cornell en el cuaderno</span>
+          </label>
+        </div>
+      </section>
+
+      <!-- 4. MICROHERRAMIENTA / LABORATORIO -->
+      <section class="card" id="step-4" hidden>
+        <h2 class="card-title">🧪 4. Laboratorio Práctico: Secuencia Lógica del Algoritmo Sumo</h2>
+        <p>Ordena los bloques del algoritmo lógico de combate que debe ejecutar el microcontrolador del robot al iniciar
+          un asalto en el Dohyo. Puedes arrastrar los elementos o usar los botones de flecha.</p>
+
+        <div id="drag-list" class="drag-container">
+          <!-- Generado dinámicamente -->
+        </div>
+
+        <div class="lab-controls">
+          <button class="btn" onclick="checkLabOrder()">Verificar Secuencia</button>
+          <button class="btn btn-secondary" onclick="resetLabOrder()">Reordenar / Reiniciar</button>
+        </div>
+        <div id="lab-feedback" class="feedback"></div>
+      </section>
+
+      <!-- 5. PRÁCTICA -->
+      <section class="card" id="step-5" hidden>
+        <h2 class="card-title">✏️ 5. Ejercicios de Práctica Conceptualmente Aplicada</h2>
+        <p style="margin-bottom: 15px; font-size: 0.9rem; color: var(--text-muted);">
+          Selecciona tus respuestas para cada pregunta. Para saber tus aciertos, presiona el botón de comprobación al
+          final de esta sección.
+        </p>
+
+        <!-- Ejercicio 1 -->
+        <div class="ex-card">
+          <div class="ex-title">1. ¿Cuál es el objetivo primario de un combate de Robots Sumo dentro del Dohyo?
           </div>
-          <div class="cornell-demo-summary">
-            <strong>Resumen Propio (Abajo):</strong>
-            <p style="font-size: 0.82rem;">Los robots sumo son sistemas autónomos que compiten en un Dohyo[cite: 1]. Requieren sensores ópticos e infrarrojos para ubicar al rival y detectar bordes, combinando estrategia física, código y normas strictly de seguridad como la espera de 5 segundos.</p>
+          <div class="options-grid" id="opts-q1">
+            <button class="opt-btn" onclick="selectQuizOption(1, 0)">Destruir los componentes electrónicos del
+              rival</button>
+            <button class="opt-btn" onclick="selectQuizOption(1, 1)">Expulsar al robot oponente fuera del área de
+              combate</button>
+            <button class="opt-btn" onclick="selectQuizOption(1, 2)">Completar un circuito de carreras en el menor
+              tiempo</button>
+            <button class="opt-btn" onclick="selectQuizOption(1, 3)">Voltearse automáticamente sobre su propio
+              chasis</button>
           </div>
         </div>
-      </details>
-    </section>
 
-    <!-- 4. MICROHERRAMIENTA / LABORATORIO -->
-    <section class="card">
-      <h2 class="card-title">🧪 4. Laboratorio Práctico: Secuencia Lógica del Algoritmo Sumo</h2>
-      <p>Ordena los bloques del algoritmo lógico de combate que debe ejecutar el microcontrolador del robot al iniciar un asalto en el Dohyo[cite: 1]. Puedes arrastrar los elementos o usar los botones de flecha.</p>
+        <!-- Ejercicio 2 -->
+        <div class="ex-card">
+          <div class="ex-title">2. ¿Qué sensor permite al robot detectar el borde blanco del ring para evitar salirse?
+          </div>
+          <div class="options-grid" id="opts-q2">
+            <button class="opt-btn" onclick="selectQuizOption(2, 0)">Sensor de temperatura</button>
+            <button class="opt-btn" onclick="selectQuizOption(2, 1)">Sensor de inclinación / Giroscopio</button>
+            <button class="opt-btn" onclick="selectQuizOption(2, 2)">Sensor óptico de línea / Infrarrojo de
+              suelo</button>
+            <button class="opt-btn" onclick="selectQuizOption(2, 3)">Sensor de sonido ambiente</button>
+          </div>
+        </div>
 
-      <div id="drag-list" class="drag-container">
-        <!-- Generado dinámicamente -->
-      </div>
+        <!-- Ejercicio 3 -->
+        <div class="ex-card">
+          <div class="ex-title">3. ¿Cuáles son las especificaciones máximas de peso y dimensiones de la categoría
+            Minisumo?</div>
+          <div class="options-grid" id="opts-q3">
+            <button class="opt-btn" onclick="selectQuizOption(3, 0)">500 gramos de peso y 10 x 10 cm de base</button>
+            <button class="opt-btn" onclick="selectQuizOption(3, 1)">3 kilogramos de peso y 20 x 20 cm de base</button>
+            <button class="opt-btn" onclick="selectQuizOption(3, 2)">100 gramos de peso y 5 x 5 cm de base</button>
+            <button class="opt-btn" onclick="selectQuizOption(3, 3)">1 kilogramo de peso sin límite de
+              dimensiones</button>
+          </div>
+        </div>
 
-      <div class="lab-controls">
-        <button class="btn" onclick="checkLabOrder()">Verificar Secuencia</button>
-        <button class="btn btn-secondary" onclick="resetLabOrder()">Reordenar / Reiniciar</button>
-      </div>
-      <div id="lab-feedback" class="feedback"></div>
-    </section>
+        <!-- Ejercicio 4 -->
+        <div class="ex-card">
+          <div class="ex-title">4. ¿Por qué es obligatorio incluir un tiempo de retardo de 5 segundos al encender el
+            robot?</div>
+          <div class="options-grid" id="opts-q4">
+            <button class="opt-btn" onclick="selectQuizOption(4, 0)">Para dar tiempo a que los motores se
+              calienten</button>
+            <button class="opt-btn" onclick="selectQuizOption(4, 1)">Por normas de seguridad para jueces y
+              competidores</button>
+            <button class="opt-btn" onclick="selectQuizOption(4, 2)">Para que las baterías carguen
+              completamente</button>
+            <button class="opt-btn" onclick="selectQuizOption(4, 3)">Para transmitir datos vía Wi-Fi al público</button>
+          </div>
+        </div>
 
-    <!-- 5. PRÁCTICA -->
-    <section class="card">
-      <h2 class="card-title">✏️ 5. Ejercicios de Práctica Conceptualmente Aplicada</h2>
-      <p style="margin-bottom: 15px; font-size: 0.9rem; color: var(--text-muted);">
-        Selecciona tus respuestas para cada pregunta. Para saber tus aciertos, presiona el botón de comprobación al final de esta sección.
-      </p>
+        <!-- Ejercicio 5 -->
+        <div class="ex-card">
+          <div class="ex-title">5. ¿Qué función física cumple el diseño inclinado en forma de cuña frontal en el chasis?
+          </div>
+          <div class="options-grid" id="opts-q5">
+            <button class="opt-btn" onclick="selectQuizOption(5, 0)">Aumentar la resistencia del aire</button>
+            <button class="opt-btn" onclick="selectQuizOption(5, 1)">Hacer que el robot se vea más estético</button>
+            <button class="opt-btn" onclick="selectQuizOption(5, 2)">Levantar al rival para restar su tracción al
+              suelo</button>
+            <button class="opt-btn" onclick="selectQuizOption(5, 3)">Esconder los sensores ultrasonido</button>
+          </div>
+        </div>
 
-      <!-- Ejercicio 1 -->
-      <div class="ex-card">
-        <div class="ex-title">1. ¿Cuál es el objetivo primario de un combate de Robots Sumo dentro del Dohyo?[cite: 1]</div>
-        <div class="options-grid" id="opts-q1">
-          <button class="opt-btn" onclick="selectQuizOption(1, 0)">Destruir los componentes electrónicos del rival</button>
-          <button class="opt-btn" onclick="selectQuizOption(1, 1)">Expulsar al robot oponente fuera del área de combate[cite: 1]</button>
-          <button class="opt-btn" onclick="selectQuizOption(1, 2)">Completar un circuito de carreras en el menor tiempo</button>
-          <button class="opt-btn" onclick="selectQuizOption(1, 3)">Voltearse automáticamente sobre su propio chasis</button>
+        <!-- Ejercicio 6 -->
+        <div class="ex-card">
+          <div class="ex-title">6. Configuración Táctica: Selecciona la orden lógica óptima para el motor al detectar el
+            borde blanco del Dohyo.</div>
+          <div class="options-grid" id="opts-q6">
+            <button class="opt-btn" onclick="selectQuizOption(6, 0)">Detecta Blanco -> Seguir Acelerando hacia el
+              frente</button>
+            <button class="opt-btn" onclick="selectQuizOption(6, 1)">Detecta Blanco -> Frenar, Retroceder y
+              Girar</button>
+            <button class="opt-btn" onclick="selectQuizOption(6, 2)">Detecta Blanco -> Apagar totalmente los
+              motores</button>
+            <button class="opt-btn" onclick="selectQuizOption(6, 3)">Detecta Blanco -> Activar alarma sonora sin
+              moverse</button>
+          </div>
+        </div>
+
+        <!-- Ejercicio 7 -->
+        <div class="ex-card">
+          <div class="ex-title">7. Penalizaciones: ¿Cuál de las siguientes acciones ocasiona la pérdida inmediata de un
+            asalto?</div>
+          <div class="options-grid" id="opts-q7">
+            <button class="opt-btn" onclick="selectQuizOption(7, 0)">Usar llantas de silicona de alta
+              adherencia</button>
+            <button class="opt-btn" onclick="selectQuizOption(7, 1)">Desprendimiento o separación de partes del robot en
+              combate</button>
+            <button class="opt-btn" onclick="selectQuizOption(7, 2)">Moverse a máxima velocidad desde el inicio</button>
+            <button class="opt-btn" onclick="selectQuizOption(7, 3)">Rotar sobre su propio eje buscando al
+              rival</button>
+          </div>
+        </div>
+
+        <!-- Ejercicio 8 -->
+        <div class="ex-card">
+          <div class="ex-title">8. Estructura de combate: ¿A cuántos rounds se realiza un encuentro estándar de
+            Sumo/Minisumo?</div>
+          <div class="options-grid" id="opts-q8">
+            <button class="opt-btn" onclick="selectQuizOption(8, 0)">1 round único de 10 minutos</button>
+            <button class="opt-btn" onclick="selectQuizOption(8, 1)">3 rounds de máximo 3 minutos cada uno</button>
+            <button class="opt-btn" onclick="selectQuizOption(8, 2)">5 rounds de 1 minuto cada uno</button>
+            <button class="opt-btn" onclick="selectQuizOption(8, 3)">Sin límite de tiempo hasta destruirse</button>
+          </div>
+        </div>
+
+        <!-- CONTROLES Y COMPROBACIÓN DEL CUESTIONARIO -->
+        <div
+          style="margin-top: 20px; padding: 15px; background: white; border-radius: 8px; border: 1px solid #cbd5e1; text-align: center;">
+          <button id="btn-check-quiz" class="btn" onclick="checkAllQuiz()">Comprobar Respuestas del
+            Cuestionario</button>
+          <button id="btn-retry-quiz" class="btn btn-secondary" style="display: none;" onclick="retryQuiz()">🔄 Intentar
+            Nuevamente (Última Oportunidad)</button>
+
+          <div id="quiz-global-feedback" class="feedback" style="margin-top: 12px; font-size: 1rem;"></div>
+          <p id="attempts-info" style="font-size: 0.85rem; color: var(--text-muted); margin-top: 6px;">Intento 1 de 2
+            disponibles</p>
+        </div>
+
+      </section>
+
+      <!-- 6. RETO FINAL (DIAGNÓSTICO ESTRUCTURADO) -->
+      <section class="card" id="step-6" hidden>
+        <h2 class="card-title">🎯 6. Reto Final: Matriz de Diagnóstico Táctico en Pista</h2>
+        <div class="highlight-box">
+          <strong>Caso de Estudio Táctico:</strong> Tu robot Minisumo enciende la luz de arranque, cumple rigurosamente
+          los 5 segundos de espera, avanza en línea recta a toda velocidad hacia el oponente, pero al llegar a la línea
+          blanca del borde del Dohyo, ignora la demarcación, sigue de largo y cae del ring perdiendo la ronda.
+        </div>
+
+        <p style="margin-bottom: 15px; font-size: 0.9rem;">
+          Completa el reporte de ingeniería seleccionando las opciones correctas para cada fase del diagnóstico:
+        </p>
+
+        <div style="display: grid; grid-template-columns: repeat(auto-fit, minmax(220px, 1fr)); gap: 15px;">
+          <div class="form-group">
+            <label for="reto-sintoma">1. Identificación del Síntoma</label>
+            <select id="reto-sintoma" class="form-control" onchange="checkRetoMatriz()">
+              <option value="">-- Seleccionar Síntoma --</option>
+              <option value="s1">El robot no enciende tras 5 segundos</option>
+              <option value="s2">Omisión del límite de seguridad blanco en el suelo</option>
+              <option value="s3">Pérdida de tracción mecánica de las ruedas</option>
+            </select>
+          </div>
+
+          <div class="form-group">
+            <label for="reto-causa">2. Causa Raíz Probable</label>
+            <select id="reto-causa" class="form-control" onchange="checkRetoMatriz()">
+              <option value="">-- Seleccionar Causa Raíz --</option>
+              <option value="c1">Falla o mala calibración del sensor óptico/infrarrojo inferior</option>
+              <option value="c2">Batería descargada del microcontrolador</option>
+              <option value="c3">Llantas de silicona desgastadas</option>
+            </select>
+          </div>
+
+          <div class="form-group">
+            <label for="reto-accion">3. Acción Correctiva en Código/Hardware</label>
+            <select id="reto-accion" class="form-control" onchange="checkRetoMatriz()">
+              <option value="">-- Seleccionar Solución --</option>
+              <option value="a1">Aumentar la masa total a 3 kilogramos</option>
+              <option value="a2">Ajustar umbral de lectura de color (Blanco/Negro) y programa de giros</option>
+              <option value="a3">Reemplazar los motores por unos de mayor torque</option>
+            </select>
+          </div>
+        </div>
+
+        <div id="reto-feedback" class="feedback" style="margin-top: 15px;"></div>
+      </section>
+
+    </div>
+
+    <!-- 7. MODO EVIDENCIA Y SEGUIMIENTO (Oculto por defecto) -->
+    <div id="evidence-view">
+      <div class="evidence-header">
+        <div>
+          <h1 style="color: var(--primary-dark); font-size: 1.6rem;">REPORTE DE EVIDENCIA Y EVALUACIÓN</h1>
+          <p style="font-size: 0.9rem; color: var(--text-muted);">01 TI 8°-9°: ROBOTS SUMO - Tecnología e Informática
+          </p>
+        </div>
+        <div style="text-align: right;">
+          <span
+            style="font-size: 0.8rem; background: var(--primary-light); color: var(--primary); padding: 4px 8px; border-radius: 4px; font-weight: 600;">Estado:
+            Guardado Local</span>
         </div>
       </div>
 
-      <!-- Ejercicio 2 -->
-      <div class="ex-card">
-        <div class="ex-title">2. ¿Qué sensor permite al robot detectar el borde blanco del ring para evitar salirse?</div>
-        <div class="options-grid" id="opts-q2">
-          <button class="opt-btn" onclick="selectQuizOption(2, 0)">Sensor de temperatura</button>
-          <button class="opt-btn" onclick="selectQuizOption(2, 1)">Sensor de inclinación / Giroscopio</button>
-          <button class="opt-btn" onclick="selectQuizOption(2, 2)">Sensor óptico de línea / Infrarrojo de suelo</button>
-          <button class="opt-btn" onclick="selectQuizOption(2, 3)">Sensor de sonido ambiente</button>
+      <!-- DATOS DEL ESTUDIANTE Y GUÍA -->
+      <div class="evidence-grid">
+        <div class="evidence-box">
+          <h3 style="font-size: 1rem; color: var(--primary-dark); margin-bottom: 6px;">📋 Datos del Estudiante</h3>
+          <p><strong>Estudiante:</strong> <span id="ev-name">No registrado</span></p>
+          <p><strong>Grado:</strong> <span id="ev-grade">8°</span></p>
+          <p><strong>Equipo/PC:</strong> <span id="ev-pc">No especificado</span></p>
+        </div>
+        <div class="evidence-box">
+          <h3 style="font-size: 1rem; color: var(--primary-dark); margin-bottom: 6px;">📌 Datos Curriculares</h3>
+          <p><strong>Área:</strong> Tecnología e Informática (TI) | <strong>Período:</strong> 4°</p>
+          <p><strong>Objetivo:</strong> Apropio principios y conceptos de la tecnología que han permitido transformar el
+            entorno.</p>
         </div>
       </div>
 
-      <!-- Ejercicio 3 -->
-      <div class="ex-card">
-        <div class="ex-title">3. ¿Cuáles son las especificaciones máximas de peso y dimensiones de la categoría Minisumo?</div>
-        <div class="options-grid" id="opts-q3">
-          <button class="opt-btn" onclick="selectQuizOption(3, 0)">500 gramos de peso y 10 x 10 cm de base</button>
-          <button class="opt-btn" onclick="selectQuizOption(3, 1)">3 kilogramos de peso y 20 x 20 cm de base</button>
-          <button class="opt-btn" onclick="selectQuizOption(3, 2)">100 gramos de peso y 5 x 5 cm de base</button>
-          <button class="opt-btn" onclick="selectQuizOption(3, 3)">1 kilogramo de peso sin límite de dimensiones</button>
+      <!-- RESUMEN DE PROGRESO Y NOTA -->
+      <div class="evidence-grid">
+        <div class="evidence-box" style="text-align: center; background: #eff6ff;">
+          <h4 style="color: var(--primary-dark);">Progreso Global</h4>
+          <div id="ev-progress-num" style="font-size: 2rem; font-weight: 800; color: var(--primary);">0%</div>
+          <p style="font-size: 0.8rem; color: var(--text-muted);">Porcentaje total de componentes completados</p>
+        </div>
+        <div class="evidence-box" style="text-align: center; background: #f0fdf4;">
+          <h4 style="color: #15803d;">Nota de Avance Estimada</h4>
+          <div id="ev-score-num" style="font-size: 2rem; font-weight: 800; color: #16a34a;">1.0 / 5.0</div>
+          <p style="font-size: 0.8rem; color: var(--text-muted);">Escala 1.0 a 5.0 (70% Práctica, 30% Reto Táctico)</p>
         </div>
       </div>
 
-      <!-- Ejercicio 4 -->
-      <div class="ex-card">
-        <div class="ex-title">4. ¿Por qué es obligatorio incluir un tiempo de retardo de 5 segundos al encender el robot?</div>
-        <div class="options-grid" id="opts-q4">
-          <button class="opt-btn" onclick="selectQuizOption(4, 0)">Para dar tiempo a que los motores se calienten</button>
-          <button class="opt-btn" onclick="selectQuizOption(4, 1)">Por normas de seguridad para jueces y competidores</button>
-          <button class="opt-btn" onclick="selectQuizOption(4, 2)">Para que las baterías carguen completamente</button>
-          <button class="opt-btn" onclick="selectQuizOption(4, 3)">Para transmitir datos vía Wi-Fi al público</button>
-        </div>
+      <!-- DETALLE DE ACTIVIDADES -->
+      <div class="evidence-box" style="margin-bottom: 15px;">
+        <h3 style="font-size: 1rem; color: var(--primary-dark); margin-bottom: 8px;">📊 Detalle de Ejecución</h3>
+        <ul style="padding-left: 20px; font-size: 0.9rem; line-height: 1.8;">
+          <li><strong>📒 Cuaderno Cornell:</strong> <span id="ev-cornell-status">Pendiente</span></li>
+          <li><strong>🧪 Laboratorio (Algoritmo):</strong> <span id="ev-lab-status">Pendiente</span></li>
+          <li><strong>✏️ Ejercicios Prácticos:</strong> <span id="ev-quiz-status">0 de 8 correctos (0 intentos
+              restantes)</span></li>
+          <li><strong>🎯 Reto Final (Diagnóstico Táctico):</strong> <span id="ev-reto-status">Pendiente</span></li>
+        </ul>
       </div>
 
-      <!-- Ejercicio 5 -->
-      <div class="ex-card">
-        <div class="ex-title">5. ¿Qué función física cumple el diseño inclinado en forma de cuña frontal en el chasis?</div>
-        <div class="options-grid" id="opts-q5">
-          <button class="opt-btn" onclick="selectQuizOption(5, 0)">Aumentar la resistencia del aire</button>
-          <button class="opt-btn" onclick="selectQuizOption(5, 1)">Hacer que el robot se vea más estético</button>
-          <button class="opt-btn" onclick="selectQuizOption(5, 2)">Levantar al rival para restar su tracción al suelo</button>
-          <button class="opt-btn" onclick="selectQuizOption(5, 3)">Esconder los sensores ultrasonido</button>
-        </div>
+      <!-- CONTEXTO PARA EVALUACIÓN CON IA -->
+      <div class="evidence-box" style="background: #fdf4ff; border-color: #f5d0fe; margin-bottom: 20px;">
+        <h3 style="font-size: 0.95rem; color: #86198f; margin-bottom: 6px;">🤖 Contexto para Evaluación con IA</h3>
+        <p style="font-size: 0.82rem; color: #701a75; line-height: 1.4;">
+          <strong>Área:</strong> TI | <strong>Grado:</strong> 8°-9° | <strong>Tema:</strong> Robots Sumo.<br>
+          <strong>Objetivo:</strong> Valorar la apropiación de conceptos de robótica autónoma, sensores de
+          línea/distancia y lógica algorítmica.<br>
+          <strong>Evidencia Visible:</strong> Registro de estudiante, secuencia del algoritmo, resultado del
+          cuestionario estructurado (máximo 2 intentos) y resolución del Reto Táctico.<br>
+          <strong>Criterios de Evaluación IA:</strong> Interpretar el desempeño general según la rúbrica anexa en la
+          escala institucional de 1.0 a 5.0.
+        </p>
       </div>
 
-      <!-- Ejercicio 6 -->
-      <div class="ex-card">
-        <div class="ex-title">6. Configuración Táctica: Selecciona la orden lógica óptima para el motor al detectar el borde blanco del Dohyo[cite: 1].</div>
-        <div class="options-grid" id="opts-q6">
-          <button class="opt-btn" onclick="selectQuizOption(6, 0)">Detecta Blanco -> Seguir Acelerando hacia el frente</button>
-          <button class="opt-btn" onclick="selectQuizOption(6, 1)">Detecta Blanco -> Frenar, Retroceder y Girar</button>
-          <button class="opt-btn" onclick="selectQuizOption(6, 2)">Detecta Blanco -> Apagar totalmente los motores</button>
-          <button class="opt-btn" onclick="selectQuizOption(6, 3)">Detecta Blanco -> Activar alarma sonora sin moverse</button>
-        </div>
+      <!-- RÚBRICA DE EVIDENCIA -->
+      <h3 style="font-size: 1rem; color: var(--primary-dark); margin-bottom: 8px;">📐 Rúbrica de Evaluación de Evidencia
+      </h3>
+      <table class="rubric-table">
+        <thead>
+          <tr>
+            <th>Criterio</th>
+            <th>Bajo (1.0 - 3.2)</th>
+            <th>Alto (3.3 - 4.5)</th>
+            <th>Superior (4.6 - 5.0)</th>
+          </tr>
+        </thead>
+        <tbody>
+          <tr>
+            <td><strong>1. Comprensión Conceptual</strong></td>
+            <td>Acierta en menos de 4 ejercicios prácticos. Confunde sensores.</td>
+            <td>Acierta entre 5 y 7 ejercicios. Comprende sensores y reglas.</td>
+            <td>Acierta los 8 ejercicios del cuestionario. Domina conceptos de Sumo.</td>
+          </tr>
+          <tr>
+            <td><strong>2. Análisis del Laboratorio</strong></td>
+            <td>No logra ordenar la secuencia lógica de inicio del robot.</td>
+            <td>Ordena la secuencia con 1 o 2 reintentos.</td>
+            <td>Resuelve el algoritmo lógico correctamente al primer intento.</td>
+          </tr>
+          <tr>
+            <td><strong>3. Diagnóstico Táctico (Reto)</strong></td>
+            <td>No logra identificar el síntoma ni la causa raíz en la pista.</td>
+            <td>Identifica el síntoma y la causa pero falla en la solución técnica.</td>
+            <td>Diagnostica correctamente síntoma, causa y acción correctiva.</td>
+          </tr>
+          <tr>
+            <td><strong>4. Aplicación al Contexto</strong></td>
+            <td>No relaciona las reglas del Dohyo con el comportamiento del robot.</td>
+            <td>Aplica conceptos de seguridad y velocidad a la práctica.</td>
+            <td>Propone mejoras de diseño físico y lógico para alta competición.</td>
+          </tr>
+          <tr>
+            <td><strong>5. Proceso y Autonomía</strong></td>
+            <td>Incompleto. No realiza el esquema Cornell ni guarda avance.</td>
+            <td>Completa las actividades principales con buena autonomía.</td>
+            <td>Desarrolla la guía completa de forma autónoma y rigurosa.</td>
+          </tr>
+        </tbody>
+      </table>
+
+      <!-- CONTROLES EXCLUSIVOS MODO EVIDENCIA -->
+      <div class="no-print" style="margin-top: 25px; display: flex; gap: 10px; justify-content: flex-end;">
+        <button class="btn btn-secondary" onclick="hideEvidenceMode()">⬅️ Volver a la Guía</button>
+        <button class="btn" onclick="exportPNG()">🖼️ Descargar Imagen</button>
+        <button class="btn btn-evidence" onclick="exportPDF()">📄 Descargar PDF</button>
       </div>
-
-      <!-- Ejercicio 7 -->
-      <div class="ex-card">
-        <div class="ex-title">7. Penalizaciones: ¿Cuál de las siguientes acciones ocasiona la pérdida inmediata de un asalto?[cite: 1]</div>
-        <div class="options-grid" id="opts-q7">
-          <button class="opt-btn" onclick="selectQuizOption(7, 0)">Usar llantas de silicona de alta adherencia</button>
-          <button class="opt-btn" onclick="selectQuizOption(7, 1)">Desprendimiento o separación de partes del robot en combate[cite: 1]</button>
-          <button class="opt-btn" onclick="selectQuizOption(7, 2)">Moverse a máxima velocidad desde el inicio</button>
-          <button class="opt-btn" onclick="selectQuizOption(7, 3)">Rotar sobre su propio eje buscando al rival</button>
-        </div>
-      </div>
-
-      <!-- Ejercicio 8 -->
-      <div class="ex-card">
-        <div class="ex-title">8. Estructura de combate: ¿A cuántos rounds se realiza un encuentro estándar de Sumo/Minisumo?[cite: 1]</div>
-        <div class="options-grid" id="opts-q8">
-          <button class="opt-btn" onclick="selectQuizOption(8, 0)">1 round único de 10 minutos</button>
-          <button class="opt-btn" onclick="selectQuizOption(8, 1)">3 rounds de máximo 3 minutos cada uno[cite: 1]</button>
-          <button class="opt-btn" onclick="selectQuizOption(8, 2)">5 rounds de 1 minuto cada uno</button>
-          <button class="opt-btn" onclick="selectQuizOption(8, 3)">Sin límite de tiempo hasta destruirse</button>
-        </div>
-      </div>
-
-      <!-- CONTROLES Y COMPROBACIÓN DEL CUESTIONARIO -->
-      <div style="margin-top: 20px; padding: 15px; background: white; border-radius: 8px; border: 1px solid #cbd5e1; text-align: center;">
-        <button id="btn-check-quiz" class="btn" onclick="checkAllQuiz()">Comprobar Respuestas del Cuestionario</button>
-        <button id="btn-retry-quiz" class="btn btn-secondary" style="display: none;" onclick="retryQuiz()">🔄 Intentar Nuevamente (Última Oportunidad)</button>
-        
-        <div id="quiz-global-feedback" class="feedback" style="margin-top: 12px; font-size: 1rem;"></div>
-        <p id="attempts-info" style="font-size: 0.85rem; color: var(--text-muted); margin-top: 6px;">Intento 1 de 2 disponibles</p>
-      </div>
-
-    </section>
-
-    <!-- 6. RETO FINAL (DIAGNÓSTICO ESTRUCTURADO) -->
-    <section class="card">
-      <h2 class="card-title">🎯 6. Reto Final: Matriz de Diagnóstico Táctico en Pista</h2>
-      <div class="highlight-box">
-        <strong>Caso de Estudio Táctico:</strong> Tu robot Minisumo enciende la luz de arranque, cumple rigurosamente los 5 segundos de espera, avanza en línea recta a toda velocidad hacia el oponente, pero al llegar a la línea blanca del borde del Dohyo, ignora la demarcación, sigue de largo y cae del ring perdiendo la ronda[cite: 1].
-      </div>
-      
-      <p style="margin-bottom: 15px; font-size: 0.9rem;">
-        Completa el reporte de ingeniería seleccionando las opciones correctas para cada fase del diagnóstico:
-      </p>
-
-      <div style="display: grid; grid-template-columns: repeat(auto-fit, minmax(220px, 1fr)); gap: 15px;">
-        <div class="form-group">
-          <label for="reto-sintoma">1. Identificación del Síntoma</label>
-          <select id="reto-sintoma" class="form-control" onchange="checkRetoMatriz()">
-            <option value="">-- Seleccionar Síntoma --</option>
-            <option value="s1">El robot no enciende tras 5 segundos</option>
-            <option value="s2">Omisión del límite de seguridad blanco en el suelo</option>
-            <option value="s3">Pérdida de tracción mecánica de las ruedas</option>
-          </select>
-        </div>
-
-        <div class="form-group">
-          <label for="reto-causa">2. Causa Raíz Probable</label>
-          <select id="reto-causa" class="form-control" onchange="checkRetoMatriz()">
-            <option value="">-- Seleccionar Causa Raíz --</option>
-            <option value="c1">Falla o mala calibración del sensor óptico/infrarrojo inferior</option>
-            <option value="c2">Batería descargada del microcontrolador</option>
-            <option value="c3">Llantas de silicona desgastadas</option>
-          </select>
-        </div>
-
-        <div class="form-group">
-          <label for="reto-accion">3. Acción Correctiva en Código/Hardware</label>
-          <select id="reto-accion" class="form-control" onchange="checkRetoMatriz()">
-            <option value="">-- Seleccionar Solución --</option>
-            <option value="a1">Aumentar la masa total a 3 kilogramos</option>
-            <option value="a2">Ajustar umbral de lectura de color (Blanco/Negro) y programa de giros</option>
-            <option value="a3">Reemplazar los motores por unos de mayor torque</option>
-          </select>
-        </div>
-      </div>
-
-      <div id="reto-feedback" class="feedback" style="margin-top: 15px;"></div>
-    </section>
+    </div>
 
   </div>
 
-  <!-- 7. MODO EVIDENCIA Y SEGUIMIENTO (Oculto por defecto) -->
-  <div id="evidence-view">
-    <div class="evidence-header">
-      <div>
-        <h1 style="color: var(--primary-dark); font-size: 1.6rem;">REPORTE DE EVIDENCIA Y EVALUACIÓN</h1>
-        <p style="font-size: 0.9rem; color: var(--text-muted);">01 TI 8°-9°: ROBOTS SUMO - Tecnología e Informática</p>
-      </div>
-      <div style="text-align: right;">
-        <span style="font-size: 0.8rem; background: var(--primary-light); color: var(--primary); padding: 4px 8px; border-radius: 4px; font-weight: 600;">Estado: Guardado Local</span>
-      </div>
-    </div>
+  <script>
+    // URL de tu aplicación web en Google Apps Script
+    const SCRIPT_URL = 'https://script.google.com/macros/s/AKfycbybRNRET1M9-elBBn1RZDvBwSacnnQhg-7Ws4B0mQRqVDEQA26Ic87yd-ncyyW3tA/exec';
 
-    <!-- DATOS DEL ESTUDIANTE Y GUÍA -->
-    <div class="evidence-grid">
-      <div class="evidence-box">
-        <h3 style="font-size: 1rem; color: var(--primary-dark); margin-bottom: 6px;">📋 Datos del Estudiante</h3>
-        <p><strong>Estudiante:</strong> <span id="ev-name">No registrado</span></p>
-        <p><strong>Grado:</strong> <span id="ev-grade">8°</span></p>
-        <p><strong>Equipo/PC:</strong> <span id="ev-pc">No especificado</span></p>
-      </div>
-      <div class="evidence-box">
-        <h3 style="font-size: 1rem; color: var(--primary-dark); margin-bottom: 6px;">📌 Datos Curriculares</h3>
-        <p><strong>Área:</strong> Tecnología e Informática (TI) | <strong>Período:</strong> 4°</p>
-        <p><strong>Objetivo:</strong> Apropio principios y conceptos de la tecnología que han permitido transformar el entorno[cite: 1].</p>
-      </div>
-    </div>
+    function enviarResultados(nombreAlumno, gradoAlumno, notaObtenida) {
+      const payload = {
+        nombre: nombreAlumno,
+        grado: gradoAlumno,
+        nota: notaObtenida
+      };
 
-    <!-- RESUMEN DE PROGRESO Y NOTA -->
-    <div class="evidence-grid">
-      <div class="evidence-box" style="text-align: center; background: #eff6ff;">
-        <h4 style="color: var(--primary-dark);">Progreso Global</h4>
-        <div id="ev-progress-num" style="font-size: 2rem; font-weight: 800; color: var(--primary);">0%</div>
-        <p style="font-size: 0.8rem; color: var(--text-muted);">Porcentaje total de componentes completados</p>
-      </div>
-      <div class="evidence-box" style="text-align: center; background: #f0fdf4;">
-        <h4 style="color: #15803d;">Nota de Avance Estimada</h4>
-        <div id="ev-score-num" style="font-size: 2rem; font-weight: 800; color: #16a34a;">1.0 / 5.0</div>
-        <p style="font-size: 0.8rem; color: var(--text-muted);">Escala 1.0 a 5.0 (70% Práctica, 30% Reto Táctico)</p>
-      </div>
-    </div>
+      fetch(SCRIPT_URL, {
+        method: 'POST',
+        mode: 'no-cors',
+        headers: {
+          'Content-Type': 'application/json'
+        },
+        body: JSON.stringify(payload)
+      })
+        .then(() => {
+          console.log('Datos enviados correctamente a Google Sheets.');
+        })
+        .catch(error => {
+          console.error('Error al registrar la información:', error);
+        });
+    }
 
-    <!-- DETALLE DE ACTIVIDADES -->
-    <div class="evidence-box" style="margin-bottom: 15px;">
-      <h3 style="font-size: 1rem; color: var(--primary-dark); margin-bottom: 8px;">📊 Detalle de Ejecución</h3>
-      <ul style="padding-left: 20px; font-size: 0.9rem; line-height: 1.8;">
-        <li><strong>📒 Cuaderno Cornell:</strong> <span id="ev-cornell-status">Pendiente</span></li>
-        <li><strong>🧪 Laboratorio (Algoritmo):</strong> <span id="ev-lab-status">Pendiente</span></li>
-        <li><strong>✏️ Ejercicios Prácticos:</strong> <span id="ev-quiz-status">0 de 8 correctos (0 intentos restantes)</span></li>
-        <li><strong>🎯 Reto Final (Diagnóstico Táctico):</strong> <span id="ev-reto-status">Pendiente</span></li>
-      </ul>
-    </div>
-
-    <!-- CONTEXTO PARA EVALUACIÓN CON IA -->
-    <div class="evidence-box" style="background: #fdf4ff; border-color: #f5d0fe; margin-bottom: 20px;">
-      <h3 style="font-size: 0.95rem; color: #86198f; margin-bottom: 6px;">🤖 Contexto para Evaluación con IA</h3>
-      <p style="font-size: 0.82rem; color: #701a75; line-height: 1.4;">
-        <strong>Área:</strong> TI | <strong>Grado:</strong> 8°-9° | <strong>Tema:</strong> Robots Sumo[cite: 1].<br>
-        <strong>Objetivo:</strong> Valorar la apropiación de conceptos de robótica autónoma, sensores de línea/distancia y lógica algorítmica[cite: 1].<br>
-        <strong>Evidencia Visible:</strong> Registro de estudiante, secuencia del algoritmo, resultado del cuestionario estructurado (máximo 2 intentos) y resolución del Reto Táctico.<br>
-        <strong>Criterios de Evaluación IA:</strong> Interpretar el desempeño general según la rúbrica anexa en la escala institucional de 1.0 a 5.0.
-      </p>
-    </div>
-
-    <!-- RÚBRICA DE EVIDENCIA -->
-    <h3 style="font-size: 1rem; color: var(--primary-dark); margin-bottom: 8px;">📐 Rúbrica de Evaluación de Evidencia</h3>
-    <table class="rubric-table">
-      <thead>
-        <tr>
-          <th>Criterio</th>
-          <th>Bajo (1.0 - 3.2)</th>
-          <th>Alto (3.3 - 4.5)</th>
-          <th>Superior (4.6 - 5.0)</th>
-        </tr>
-      </thead>
-      <tbody>
-        <tr>
-          <td><strong>1. Comprensión Conceptual</strong></td>
-          <td>Acierta en menos de 4 ejercicios prácticos. Confunde sensores.</td>
-          <td>Acierta entre 5 y 7 ejercicios. Comprende sensores y reglas[cite: 1].</td>
-          <td>Acierta los 8 ejercicios del cuestionario. Domina conceptos de Sumo[cite: 1].</td>
-        </tr>
-        <tr>
-          <td><strong>2. Análisis del Laboratorio</strong></td>
-          <td>No logra ordenar la secuencia lógica de inicio del robot.</td>
-          <td>Ordena la secuencia con 1 o 2 reintentos.</td>
-          <td>Resuelve el algoritmo lógico correctamente al primer intento.</td>
-        </tr>
-        <tr>
-          <td><strong>3. Diagnóstico Táctico (Reto)</strong></td>
-          <td>No logra identificar el síntoma ni la causa raíz en la pista.</td>
-          <td>Identifica el síntoma y la causa pero falla en la solución técnica.</td>
-          <td>Diagnostica correctamente síntoma, causa y acción correctiva.</td>
-        </tr>
-        <tr>
-          <td><strong>4. Aplicación al Contexto</strong></td>
-          <td>No relaciona las reglas del Dohyo con el comportamiento del robot[cite: 1].</td>
-          <td>Aplica conceptos de seguridad y velocidad a la práctica.</td>
-          <td>Propone mejoras de diseño físico y lógico para alta competición.</td>
-        </tr>
-        <tr>
-          <td><strong>5. Proceso y Autonomía</strong></td>
-          <td>Incompleto. No realiza el esquema Cornell ni guarda avance.</td>
-          <td>Completa las actividades principales con buena autonomía.</td>
-          <td>Desarrolla la guía completa de forma autónoma y rigurosa.</td>
-        </tr>
-      </tbody>
-    </table>
-
-    <!-- CONTROLES EXCLUSIVOS MODO EVIDENCIA -->
-    <div class="no-print" style="margin-top: 25px; display: flex; gap: 10px; justify-content: flex-end;">
-      <button class="btn btn-secondary" onclick="hideEvidenceMode()">⬅️ Volver a la Guía</button>
-      <button class="btn" onclick="exportPNG()">🖼️ Descargar Imagen</button>
-      <button class="btn btn-evidence" onclick="exportPDF()">📄 Descargar PDF</button>
-    </div>
-  </div>
-
-</div>
-
-<script>
-  // URL de tu aplicación web en Google Apps Script
-  const SCRIPT_URL = 'https://script.google.com/macros/s/AKfycbybRNRET1M9-elBBn1RZDvBwSacnnQhg-7Ws4B0mQRqVDEQA26Ic87yd-ncyyW3tA/exec';
-
-  function enviarResultados(nombreAlumno, gradoAlumno, notaObtenida) {
-    const payload = {
-      nombre: nombreAlumno,
-      grado: gradoAlumno,
-      nota: notaObtenida
+    // CONFIGURACIÓN DE RESPUESTAS CORRECTAS
+    const correctQuizAnswers = {
+      1: 1, // Expulsar al oponente
+      2: 2, // Sensor óptico de línea
+      3: 0, // 500g y 10x10 cm
+      4: 1, // Seguridad
+      5: 2, // Levantar al rival
+      6: 1, // Frenar, retroceder y girar
+      7: 1, // Desprendimiento de partes
+      8: 1  // 3 rounds de 3 min
     };
 
-    fetch(SCRIPT_URL, {
-      method: 'POST',
-      mode: 'no-cors',
-      headers: {
-        'Content-Type': 'application/json'
-      },
-      body: JSON.stringify(payload)
-    })
-    .then(() => {
-      console.log('Datos enviados correctamente a Google Sheets.');
-    })
-    .catch(error => {
-      console.error('Error al registrar la información:', error);
-    });
-  }
+    const labCorrectOrder = [
+      "Encendido del robot en el Dohyo",
+      "Espera obligatoria de 5 segundos",
+      "Avanzar y buscar oponente con distancia",
+      "Detectar borde blanco con sensor de línea",
+      "Frenar, retroceder y girar para no salir"
+    ];
 
-  // CONFIGURACIÓN DE RESPUESTAS CORRECTAS
-  const correctQuizAnswers = {
-    1: 1, // Expulsar al oponente
-    2: 2, // Sensor óptico de línea
-    3: 0, // 500g y 10x10 cm
-    4: 1, // Seguridad
-    5: 2, // Levantar al rival
-    6: 1, // Frenar, retroceder y girar
-    7: 1, // Desprendimiento de partes
-    8: 1  // 3 rounds de 3 min
-  };
+    // ESTADO GLOBAL
+    let currentLabOrder = [...labCorrectOrder].sort(() => Math.random() - 0.5);
+    let userSelections = {}; // Respuestas seleccionadas en Quiz
+    let quizAttempts = 0; // Contador de intentos (Máximo 2)
+    let quizEvaluated = false; // Flag de estado evaluado
+    let retoCorrect = false;
+    let labVerified = false;
+    let datosEnviados = false; // Control para evitar reenvíos duplicados
+    let students = [];
+    const studentCsv = `firstname;lastname;course
+  JAROL STIVEN;CAICEDO PAEZ;801
+  LAURENS VALENTINA;CAPERA ROJAS;801
+  MARIA FERNANDA;CASTRO TIQUE;801
+  SARAY MELISSA;CORONADO TRUJILLO;801
+  MARIA JOSE;DOMINGUEZ ARRIETA;801
+  SARA MICHELL;GULATEROS BERNATE;801
+  EVELIN DAHIANA;LOAIZA CAICEDO;801
+  SHEINY SOFIA;LOPEZ CHAVEZ;801
+  JOHAN DANIEL;LOZANO CASTRO;801
+  DILAN ;LOZANO MOSQUERA;801
+  LEIDY VANESA;LUGO TIMOTE;801
+  OSCAR JHOANI;MANJARREZ MARTINEZ;801
+  DANIELA ;MASMELA MANRIQUE;801
+  MELANY ;MOLINA DEVIA;801
+  YEISON HERNÁN;MORALES MALAMBO;801
+  DEIVIN STIWEN;MORALES RADA;801
+  MAILY STEFANIA;MURILLO SUAREZ;801
+  IVAN ANDRES;OYOLA SANDOVAL;801
+  NORMA JULIANA;PEÑA TOTENA;801
+  DAVID SANTIAGO;PERDOMO ORTIZ;801
+  SAIRA SOFIA;RAMIREZ QUIÑONES;801
+  JUAN CAMILO;REYES REYES;801
+  MATEO ;RIOS QUIMBAYO;801
+  TOMAS ;RIOS QUIMBAYO;801
+  LAURA SOFIA;RODRIGUEZ SOGAMOSO;801
+  YARVINSON ARLEY;ROJAS CASTRO;801
+  HELEN SOFÍA;RUBIO LOZANO;801
+  DAVID SANTIAGO;SALAS GALICIA;801
+  DIANA VALENTINA;SANCHEZ ZAPATA;801
+  LITZY ASTRID;VARGAS MENDEZ;801
+  SARA VALENTINA;YATE PEÑUELA;801
+  KEVIN ALEJANDRO;ZAMUDIO DEVIA;801
+  JHON ANDERSON;ARAGON ROMERO;802
+  RUBY ALEJANDRA;BERNAL WELGOS;802
+  TOMAS FELIPE;CAMACHO VALENCIA;802
+  RONALD STEVEN;CARDOZO MALAMBO;802
+  MATEO ;CASTRO PRIETO;802
+  MARIA JOSE;CASTRO SALAZAR;802
+  ARIC ANDREW;CUELLAR DIAZ;802
+  YERSON DANIEL;CUELLAR SANCHEZ;802
+  ALEJANDRA YULIETH;DELGADO ROMERO;802
+  EVELYN FELISA;DURAN FONSECA;802
+  FRANK ESTEBAN;FORERO BRIÑEZ;802
+  MIGUEL ANGEL;GARCIA TOVAR;802
+  WENDY TATIANA;GUTIERREZ ROMERO;802
+  DAVID SANTIAGO;JIMENEZ DEVIA;802
+  ELISABEL ;LEZAMA TORRES;802
+  MARIA JOSE;LEZAMA TORRES;802
+  JHOAN SEBASTIAN;LOPEZ GUTIERREZ;802
+  KEINY DAYANA;LOZANO LEAL;802
+  LAURA SOFÍA;MENDEZ HINCAPIÉ;802
+  DANNA GABRIELA;MENDEZ PALOMINO;802
+  VALERIT DANIELA;MONTAÑA HERRERA;802
+  VALERY YAROSLAY;NIÑO CAMACHO;802
+  CAMILO ANDRES;OVIEDO REYES;802
+  JOSE FRANCISCO;REINOSO CAMPOS;802
+  MARIANGEL ;RINCON TAFUR;802
+  YEINER MAURICIO;ROA PALOMINO;802
+  EDIER ANDRES;RODRIGUEZ HERNÁNDEZ;802
+  DAVID SANTIAGO;ROMERO CRUZ;802
+  BRIYITH ;RUBIO OCAMPO;802
+  LINA MARCELA;RUIZ CRUZ;802
+  ERICK FELIPE;SUAREZ PEREZ;802
+  JHON ALEXANDER;TAFUR GONZALEZ;802
+  DIEGO ALEJADRO;TALERO LUNA;802
+  JONATAN ANDRES;VELANDIA NIETO;802
+  DIANA SOFIA;ALDANA BARRETO;901
+  JHON EDUAR;BRIÑEZ SILVA;901
+  LAURA VALENTINA;CAICEDO PAEZ;901
+  LIZZE VIVIANA;CAICEDO ROMERO;901
+  MARIA FERNANDA;CASTAÑEDA RUBIO;901
+  LAURA SOFIA;CASTEBLANCO ROJAS;901
+  JOSE DAVID;CHICO CASTRO;901
+  JOHAN STEVAN;DEVIA RAMIREZ;901
+  SALOMÓN ;GOMEZ LOZANO;901
+  KAROL FERNANDA;GUACARI GOMEZ;901
+  JUAN PABLO;GUZMAN TILANO;901
+  ANDRI YULIETH;HERRERA JIMENEZ;901
+  YURI LISETH;LUGO TIMOTE;901
+  SARA VALENTINA;MORALES CHAVEZ;901
+  LAURA LUCIA;MORALES MENDEZ;901
+  MARIA FERNANDA;OLIVEROS JOVEN;901
+  LISA MARÍA;OSORIO BLASQUEZ;901
+  ANDREW SMITH;OVIEDO POLOCHE;901
+  JUAN DAVID;PUERTO CAMPOS;901
+  ADRIAN EDUARDO;RIOS QUINTERO;901
+  ANYEL SANTIAGO;RODRIGUEZ ZUÑIGA;901
+  VALENTINA ;SALCEDO AGUILAR;901
+  SHAIRA NICOL;TORRES CHAVEZ;901
+  VALENTINA ;YANGUMA CERQUERA;901
+  MARIA JULIANA;AGUIAR ARIZA;902
+  SHIRLEY YOHANA;ARIAS CABRERA;902
+  YERICH EDUARDO;BARRERA HERNANDEZ;902
+  EYLIN YOSDELY;BERMUDEZ PAVA;902
+  KEVIN JULIAN;CALDERON RAMIREZ;902
+  LUZDY YAICSURI;CASTRO MARTINEZ;902
+  LINCO JARY;CESPEDES QUINTERO;902
+  LEIDY  JOHANA;FORERO CULMA;902
+  JULIANA VANESA;FRANCO PRIETO;902
+  DARWIN MAURICIO;GONZALEZ GARCIA;902
+  CRISTIAN DAVID;GUZMAN RODRIGUEZ;902
+  SAMARA;HENAO GARCIA;902
+  EVA SOFIA;LEZAMA TORRES;902
+  PAULA ANDREA;MALAGON CHIGUASUQUE;902
+  SHARIK DHALLANA;MENDEZ REINOSO;902
+  ANDRES FERNANDO;PEÑA MARIN;902
+  LOREN NICOL;PERDOMO MENDEZ;902
+  NIKOOL VIVIANA;RAMIREZ BARRIOS;902
+  SOFIA ;ROBLEDO VARGAS;902
+  MAICOL DAVID;ROMERO OYOLA;902
+  SARAI VALENTINA;SALAS HERNANDEZ;902
+  BRAYAN STIVEN;SALDAÑA PALOMINO;902
+  JOHAN SEBASTIAN;SANCHEZ RODAS;902
+  PATRICIA ;SUAREZ MENDEZ;902
+  JONATAN ANDRES;TORRES RAMOS;902
+  ALEJANDRA ;YAGUARA YATE;902
+  JHOSTIN;ALVAREZ MEDINA;801AN
+  SARA SOFIA;AVENDAÑO ORTIZ;801AN
+  MELANNY ;GONZALES GUTIERREZ;801AN
+  WILLIAM DAVID;GONZALEZ RADA;801AN
+  ESLIM DAHIANA;HENAO QUIÑONES;801AN
+  JOSE SEBASTIAN;LOZADA VELOZA;801AN
+  JHON SEBASTIAN;MARTINEZ MENDEZ;801AN
+  JOHAN STIVEN;MORENO LAGUNA;801AN
+  MIGUEL ANGEL;MURCIA LOPEZ;801AN
+  SAMIR EXMIHT;OSPINA SANCHEZ;801AN
+  DANIEL FELIPE;PEREZ GUERRERO;801AN
+  JERONIMO ANDRES;ROCHA RODRIGUEZ;801AN
+  DANNA ALEJANDRA;RODRIGUEZ BARRETO;801AN
+  CAMILO ANDRES;RODRIGUEZ MENDEZ;801AN
+  NAFER JAVIER;SANCHEZ CAPERA;801AN
+  YULIANA KATERIN;VALDERRAMA VEGA;801AN
+  JUAN CARLOS;VARON ALVAREZ;801AN
+  CRISTIAN ANDRES;MENDEZ PACHECO;901AN
+  DANA VALERIA;ORTIZ TIQUE;901AN
+  JHOAN FERNEY;SUAREZ VANEGAS;901AN
+  JOSE ANDRES;CASTRO DUCUARA;901AN
+  JULIETH VANESSA;ORTEGA FERREIRA;901AN
+  MARIA ESTHER ;HERRERA ALAPE;901AN
+  SAMMY VALENTINA;BELTRAN TAFUR;901AN
+  SANTIAGO ;MENDOZA RODRIGUEZ;901AN
+  SHARIT JOVANA;SUAREZ VALENCIA;901AN`;
 
-  const labCorrectOrder = [
-    "Encendido del robot en el Dohyo",
-    "Espera obligatoria de 5 segundos",
-    "Avanzar y buscar oponente con distancia",
-    "Detectar borde blanco con sensor de línea",
-    "Frenar, retroceder y girar para no salir"
-  ];
+    // INICIALIZACIÓN
+    window.onload = function () {
+      loadStudents();
+      renderLabList();
+      loadData();
+      updateProgress();
+    };
 
-  // ESTADO GLOBAL
-  let currentLabOrder = [...labCorrectOrder].sort(() => Math.random() - 0.5);
-  let userSelections = {}; // Respuestas seleccionadas en Quiz
-  let quizAttempts = 0; // Contador de intentos (Máximo 2)
-  let quizEvaluated = false; // Flag de estado evaluado
-  let retoCorrect = false;
-  let datosEnviados = false; // Control para evitar reenvíos duplicados
+    function loadStudents() {
+      const rows = studentCsv.trim().split(/\r?\n/);
+      students = rows.slice(1).map(row => {
+        const [firstname, lastname, course] = row.split(';');
+        return {
+          firstname: firstname.trim(),
+          lastname: lastname.trim(),
+          course: course.trim()
+        };
+      });
+      updateStudentList();
+    }
 
-  // INICIALIZACIÓN
-  window.onload = function() {
-    renderLabList();
-    loadData();
-    updateProgress();
-  };
+    function updateStudentList(selectedName = '') {
+      const studentSelect = document.getElementById('student-name');
+      const course = document.getElementById('student-grade').value;
+      const courseStudents = students
+        .filter(student => student.course === course)
+        .map(student => ({ ...student, fullName: `${student.lastname} ${student.firstname}` }));
 
-  // LAB PRÁCTICO
-  function renderLabList() {
-    const container = document.getElementById('drag-list');
-    container.innerHTML = '';
-    currentLabOrder.forEach((item, idx) => {
-      const div = document.createElement('div');
-      div.className = 'drag-item';
-      div.draggable = true;
-      div.innerHTML = `
+      studentSelect.innerHTML = '<option value="">Selecciona un alumno</option>';
+      courseStudents.forEach(student => {
+        const option = document.createElement('option');
+        option.value = student.fullName;
+        option.textContent = student.fullName;
+        studentSelect.appendChild(option);
+      });
+      studentSelect.disabled = courseStudents.length === 0;
+      studentSelect.value = selectedName;
+    }
+
+    function updateStepVisibility() {
+      const completedSteps = [
+        Boolean(document.getElementById('student-grade').value && document.getElementById('student-name').value),
+        document.getElementById('reading-check').checked,
+        document.getElementById('cornell-check').checked,
+        labVerified && JSON.stringify(currentLabOrder) === JSON.stringify(labCorrectOrder),
+        quizEvaluated && Object.keys(userSelections).length === 8,
+        retoCorrect
+      ];
+
+      for (let stepNumber = 2; stepNumber <= completedSteps.length; stepNumber++) {
+        const isUnlocked = completedSteps.slice(0, stepNumber - 1).every(Boolean);
+        document.getElementById(`step-${stepNumber}`).hidden = !isUnlocked;
+      }
+    }
+
+    // LAB PRÁCTICO
+    function renderLabList() {
+      const container = document.getElementById('drag-list');
+      container.innerHTML = '';
+      currentLabOrder.forEach((item, idx) => {
+        const div = document.createElement('div');
+        div.className = 'drag-item';
+        div.draggable = true;
+        div.innerHTML = `
         <span><strong>Paso ${idx + 1}:</strong> ${item}</span>
         <div style="display:flex; gap:4px;">
           <button class="btn btn-secondary" style="padding:2px 8px; font-size:0.8rem;" onclick="moveLab(${idx}, -1)">▲</button>
           <button class="btn btn-secondary" style="padding:2px 8px; font-size:0.8rem;" onclick="moveLab(${idx}, 1)">▼</button>
         </div>
       `;
-      
-      div.ondragstart = (e) => e.dataTransfer.setData('text/plain', idx);
-      div.ondragover = (e) => e.preventDefault();
-      div.ondrop = (e) => {
-        e.preventDefault();
-        const fromIdx = parseInt(e.dataTransfer.getData('text/plain'));
-        const toIdx = idx;
-        const temp = currentLabOrder[fromIdx];
-        currentLabOrder[fromIdx] = currentLabOrder[toIdx];
-        currentLabOrder[toIdx] = temp;
+
+        div.ondragstart = (e) => e.dataTransfer.setData('text/plain', idx);
+        div.ondragover = (e) => e.preventDefault();
+        div.ondrop = (e) => {
+          e.preventDefault();
+          const fromIdx = parseInt(e.dataTransfer.getData('text/plain'));
+          const toIdx = idx;
+          const temp = currentLabOrder[fromIdx];
+          currentLabOrder[fromIdx] = currentLabOrder[toIdx];
+          currentLabOrder[toIdx] = temp;
+          labVerified = false;
+          renderLabList();
+          updateProgress();
+          saveData();
+        };
+
+        container.appendChild(div);
+      });
+    }
+
+    function moveLab(index, direction) {
+      const targetIndex = index + direction;
+      if (targetIndex >= 0 && targetIndex < currentLabOrder.length) {
+        const temp = currentLabOrder[index];
+        currentLabOrder[index] = currentLabOrder[targetIndex];
+        currentLabOrder[targetIndex] = temp;
+        labVerified = false;
         renderLabList();
-      };
+        updateProgress();
+        saveData();
+      }
+    }
 
-      container.appendChild(div);
-    });
-  }
+    function checkLabOrder() {
+      const isCorrect = JSON.stringify(currentLabOrder) === JSON.stringify(labCorrectOrder);
+      labVerified = isCorrect;
+      const fb = document.getElementById('lab-feedback');
+      if (isCorrect) {
+        fb.className = "feedback correct";
+        fb.innerText = "✓ ¡Excelente! La secuencia lógica del algoritmo es perfecta.";
+      } else {
+        fb.className = "feedback incorrect";
+        fb.innerText = "✗ La secuencia no es del todo correcta. Revisa el orden de detección y retardo.";
+      }
+      updateProgress();
+      saveData();
+    }
 
-  function moveLab(index, direction) {
-    const targetIndex = index + direction;
-    if (targetIndex >= 0 && targetIndex < currentLabOrder.length) {
-      const temp = currentLabOrder[index];
-      currentLabOrder[index] = currentLabOrder[targetIndex];
-      currentLabOrder[targetIndex] = temp;
+    function resetLabOrder() {
+      currentLabOrder = [...labCorrectOrder].sort(() => Math.random() - 0.5);
+      labVerified = false;
+      document.getElementById('lab-feedback').innerText = '';
       renderLabList();
-    }
-  }
-
-  function checkLabOrder() {
-    const isCorrect = JSON.stringify(currentLabOrder) === JSON.stringify(labCorrectOrder);
-    const fb = document.getElementById('lab-feedback');
-    if (isCorrect) {
-      fb.className = "feedback correct";
-      fb.innerText = "✓ ¡Excelente! La secuencia lógica del algoritmo es perfecta.";
-    } else {
-      fb.className = "feedback incorrect";
-      fb.innerText = "✗ La secuencia no es del todo correcta. Revisa el orden de detección y retardo.";
-    }
-    updateProgress();
-    saveData();
-  }
-
-  function resetLabOrder() {
-    currentLabOrder = [...labCorrectOrder].sort(() => Math.random() - 0.5);
-    document.getElementById('lab-feedback').innerText = '';
-    renderLabList();
-  }
-
-  // LÓGICA DE SELECCIÓN Y EVALUACIÓN DEL CUESTIONARIO (PUNTO 5)
-  function selectQuizOption(qId, optIdx) {
-    if (quizEvaluated && quizAttempts >= 2) return; // Bloqueado si ya agotó intentos
-
-    userSelections[qId] = optIdx;
-
-    // Actualizar visualmente la opción seleccionada sin revelar si es correcta
-    const container = document.getElementById(`opts-q${qId}`);
-    const btns = container.querySelectorAll('.opt-btn');
-    btns.forEach((btn, idx) => {
-      btn.classList.remove('selected-option');
-      if (!quizEvaluated) {
-        btn.classList.remove('correct', 'incorrect');
-      }
-      if (idx === optIdx) {
-        btn.classList.add('selected-option');
-      }
-    });
-
-    updateProgress();
-    saveData();
-  }
-
-  function checkAllQuiz() {
-    const answeredCount = Object.keys(userSelections).length;
-    if (answeredCount < 8) {
-      alert("Por favor responde las 8 preguntas antes de comprobar tus resultados.");
-      return;
+      updateProgress();
+      saveData();
     }
 
-    quizAttempts++;
-    quizEvaluated = true;
+    // LÓGICA DE SELECCIÓN Y EVALUACIÓN DEL CUESTIONARIO (PUNTO 5)
+    function selectQuizOption(qId, optIdx) {
+      if (quizEvaluated && quizAttempts >= 2) return; // Bloqueado si ya agotó intentos
 
-    let hits = 0;
-    for (let i = 1; i <= 8; i++) {
-      const selected = userSelections[i];
-      const correct = correctQuizAnswers[i];
-      const container = document.getElementById(`opts-q${i}`);
+      userSelections[qId] = optIdx;
+
+      // Actualizar visualmente la opción seleccionada sin revelar si es correcta
+      const container = document.getElementById(`opts-q${qId}`);
       const btns = container.querySelectorAll('.opt-btn');
-
-      if (selected === correct) {
-        hits++;
-      }
-
-      // Marcar visualmente solo al comprobar
       btns.forEach((btn, idx) => {
-        btn.classList.remove('selected-option', 'correct', 'incorrect');
-        if (idx === correct) {
-          btn.classList.add('correct');
-        } else if (idx === selected && selected !== correct) {
-          btn.classList.add('incorrect');
+        btn.classList.remove('selected-option');
+        if (!quizEvaluated) {
+          btn.classList.remove('correct', 'incorrect');
+        }
+        if (idx === optIdx) {
+          btn.classList.add('selected-option');
         }
       });
+
+      updateProgress();
+      saveData();
     }
 
-    const gFb = document.getElementById('quiz-global-feedback');
-    const btnCheck = document.getElementById('btn-check-quiz');
-    const btnRetry = document.getElementById('btn-retry-quiz');
-    const attemptsInfo = document.getElementById('attempts-info');
-
-    if (hits === 8) {
-      gFb.className = "feedback correct";
-      gFb.innerText = `🎉 ¡Felicitaciones! Has obtenido un puntaje perfecto: ${hits}/8 correctas.`;
-      btnCheck.style.display = 'none';
-      btnRetry.style.display = 'none';
-      attemptsInfo.innerText = `Completado exitosamente en el intento ${quizAttempts}.`;
-    } else {
-      gFb.className = "feedback incorrect";
-      if (quizAttempts === 1) {
-        gFb.innerText = `Has obtenido ${hits}/8 aciertos. Revisa tus desaciertos marcados en rojo.`;
-        btnCheck.style.display = 'none';
-        btnRetry.style.display = 'inline-flex';
-        attemptsInfo.innerText = "Te queda 1 oportunidad para corregir tus respuestas.";
-      } else {
-        gFb.innerText = `Cuestionario finalizado. Resultado final: ${hits}/8 aciertos. Se han agotado las oportunidades.`;
-        btnCheck.style.display = 'none';
-        btnRetry.style.display = 'none';
-        attemptsInfo.innerText = "Has alcanzado el límite máximo de 2 intentos.";
-        disableQuizOptions();
+    function checkAllQuiz() {
+      const answeredCount = Object.keys(userSelections).length;
+      if (answeredCount < 8) {
+        alert("Por favor responde las 8 preguntas antes de comprobar tus resultados.");
+        return;
       }
-    }
 
-    updateProgress();
-    saveData();
-  }
+      quizAttempts++;
+      quizEvaluated = true;
 
-  function retryQuiz() {
-    if (quizAttempts >= 2) return;
-
-    quizEvaluated = false;
-    userSelections = {};
-
-    // Limpiar estilos de opciones
-    for (let i = 1; i <= 8; i++) {
-      const container = document.getElementById(`opts-q${i}`);
-      const btns = container.querySelectorAll('.opt-btn');
-      btns.forEach(btn => {
-        btn.classList.remove('selected-option', 'correct', 'incorrect');
-      });
-    }
-
-    document.getElementById('quiz-global-feedback').innerText = '';
-    document.getElementById('btn-check-quiz').style.display = 'inline-flex';
-    document.getElementById('btn-retry-quiz').style.display = 'none';
-    document.getElementById('attempts-info').innerText = "Intento 2 de 2 (Última Oportunidad)";
-
-    updateProgress();
-    saveData();
-  }
-
-  function disableQuizOptions() {
-    for (let i = 1; i <= 8; i++) {
-      const container = document.getElementById(`opts-q${i}`);
-      const btns = container.querySelectorAll('.opt-btn');
-      btns.forEach(btn => btn.disabled = true);
-    }
-  }
-
-  // RETO FINAL - MATRIZ DE DIAGNÓSTICO
-  function checkRetoMatriz() {
-    const sintoma = document.getElementById('reto-sintoma').value;
-    const causa = document.getElementById('reto-causa').value;
-    const accion = document.getElementById('reto-accion').value;
-    const fb = document.getElementById('reto-feedback');
-
-    if (sintoma === "s2" && causa === "c1" && accion === "a2") {
-      retoCorrect = true;
-      fb.className = "feedback correct";
-      fb.innerText = "✓ ¡Diagnóstico de Ingeniería Correcto! Has identificado con precisión la falla del sensor de suelo y su reprogramación.";
-    } else if (sintoma !== "" && causa !== "" && accion !== "") {
-      retoCorrect = false;
-      fb.className = "feedback incorrect";
-      fb.innerText = "✗ El diagnóstico técnico es incoherente. Revisa qué sensor detecta las líneas del suelo y su acción algorítmica.";
-    } else {
-      retoCorrect = false;
-      fb.innerText = "";
-    }
-
-    updateProgress();
-    saveData();
-  }
-
-  // CÁLCULO DE PROGRESO Y NOTA
-  function updateProgress() {
-    let totalItems = 11; // Cornell (1) + Lab (1) + 8 Quiz (8) + Reto (1)
-    let completedItems = 0;
-
-    // Cornell
-    if (document.getElementById('cornell-check').checked) completedItems++;
-
-    // Lab
-    const labIsCorrect = JSON.stringify(currentLabOrder) === JSON.stringify(labCorrectOrder);
-    if (labIsCorrect) completedItems++;
-
-    // Quiz
-    let correctQuizCount = 0;
-    if (quizEvaluated) {
+      let hits = 0;
       for (let i = 1; i <= 8; i++) {
-        if (userSelections[i] === correctQuizAnswers[i]) {
-          correctQuizCount++;
+        const selected = userSelections[i];
+        const correct = correctQuizAnswers[i];
+        const container = document.getElementById(`opts-q${i}`);
+        const btns = container.querySelectorAll('.opt-btn');
+
+        if (selected === correct) {
+          hits++;
         }
-      }
-      completedItems += Object.keys(userSelections).length;
-    } else {
-      completedItems += Object.keys(userSelections).length;
-    }
 
-    // Reto
-    if (retoCorrect) completedItems++;
-
-    const percent = Math.min(100, Math.round((completedItems / totalItems) * 100));
-    document.getElementById('progress-text').innerText = `${percent}%`;
-    document.getElementById('progress-fill').style.width = `${percent}%`;
-
-    // Nota (1.0 a 5.0)
-    let practicePoints = (labIsCorrect ? 1 : 0) + correctQuizCount; // max 9
-    let practiceScore = (practicePoints / 9) * 4.0 + 1.0;
-    let retoScore = retoCorrect ? 5.0 : 1.0;
-
-    let finalScore = (practiceScore * 0.7) + (retoScore * 0.3);
-    finalScore = Math.min(5.0, Math.max(1.0, finalScore)).toFixed(1);
-
-    // Evidencia Mode Updates
-    const studentName = document.getElementById('student-name').value || "No registrado";
-    const studentGrade = document.getElementById('student-grade').value;
-
-    document.getElementById('ev-name').innerText = studentName;
-    document.getElementById('ev-grade').innerText = studentGrade;
-    document.getElementById('ev-pc').innerText = document.getElementById('student-pc').value || "No especificado";
-    
-    document.getElementById('ev-progress-num').innerText = `${percent}%`;
-    document.getElementById('ev-score-num').innerText = `${finalScore} / 5.0`;
-    document.getElementById('ev-cornell-status').innerText = document.getElementById('cornell-check').checked ? "✅ Completado" : "⏳ Pendiente";
-    document.getElementById('ev-lab-status').innerText = labIsCorrect ? "✅ Correcto" : "⏳ Pendiente / Incorrecto";
-    document.getElementById('ev-quiz-status').innerText = quizEvaluated 
-      ? `${correctQuizCount} de 8 Aciertos (${2 - quizAttempts} oportunidades restantes)` 
-      : `${Object.keys(userSelections).length} de 8 Respondidas (Sin comprobar)`;
-    document.getElementById('ev-reto-status').innerText = retoCorrect ? "✅ Diagnóstico Correcto" : "⏳ Pendiente / Incompleto";
-
-    // Envío automático al llegar al 100% de avance
-    if (percent === 100 && !datosEnviados) {
-      enviarResultados(studentName, studentGrade, finalScore);
-      datosEnviados = true;
-    }
-  }
-
-  // MODO EVIDENCIA
-  function showEvidenceMode() {
-    updateProgress();
-    document.getElementById('main-guide').style.display = 'none';
-    document.getElementById('evidence-view').style.display = 'block';
-    window.scrollTo(0, 0);
-  }
-
-  function hideEvidenceMode() {
-    document.getElementById('evidence-view').style.display = 'none';
-    document.getElementById('main-guide').style.display = 'block';
-    window.scrollTo(0, 0);
-  }
-
-  // LOCAL STORAGE
-  function saveData() {
-    const data = {
-      name: document.getElementById('student-name').value,
-      grade: document.getElementById('student-grade').value,
-      pc: document.getElementById('student-pc').value,
-      cornell: document.getElementById('cornell-check').checked,
-      labOrder: currentLabOrder,
-      userSelections: userSelections,
-      quizAttempts: quizAttempts,
-      quizEvaluated: quizEvaluated,
-      sintoma: document.getElementById('reto-sintoma').value,
-      causa: document.getElementById('reto-causa').value,
-      accion: document.getElementById('reto-accion').value,
-      datosEnviados: datosEnviados
-    };
-    localStorage.setItem('guide_sumo_data', JSON.stringify(data));
-  }
-
-  function loadData() {
-    const saved = localStorage.getItem('guide_sumo_data');
-    if (!saved) return;
-    try {
-      const data = JSON.parse(saved);
-      if (data.name) document.getElementById('student-name').value = data.name;
-      if (data.grade) document.getElementById('student-grade').value = data.grade;
-      if (data.pc) document.getElementById('student-pc').value = data.pc;
-      if (data.cornell) document.getElementById('cornell-check').checked = data.cornell;
-      if (data.labOrder) currentLabOrder = data.labOrder;
-      
-      if (data.userSelections) userSelections = data.userSelections;
-      if (data.quizAttempts) quizAttempts = data.quizAttempts;
-      if (data.quizEvaluated) quizEvaluated = data.quizEvaluated;
-
-      if (data.sintoma) document.getElementById('reto-sintoma').value = data.sintoma;
-      if (data.causa) document.getElementById('reto-causa').value = data.causa;
-      if (data.accion) document.getElementById('reto-accion').value = data.accion;
-      if (data.datosEnviados) datosEnviados = data.datosEnviados;
-
-      renderLabList();
-      checkRetoMatriz();
-
-      // Restaurar estado visual del quiz
-      if (quizEvaluated) {
-        checkAllQuiz();
-      } else {
-        Object.keys(userSelections).forEach(qId => {
-          selectQuizOption(parseInt(qId), userSelections[qId]);
+        // Colorear solo la respuesta elegida para no revelar las demás.
+        btns.forEach((btn, idx) => {
+          btn.classList.remove('selected-option', 'correct', 'incorrect');
+          if (idx === selected) {
+            btn.classList.add(selected === correct ? 'correct' : 'incorrect');
+          }
         });
       }
 
-    } catch(e) {
-      console.error("Error al cargar datos guardados", e);
+      const gFb = document.getElementById('quiz-global-feedback');
+      const btnCheck = document.getElementById('btn-check-quiz');
+      const btnRetry = document.getElementById('btn-retry-quiz');
+      const attemptsInfo = document.getElementById('attempts-info');
+      gFb.className = 'feedback';
+      gFb.innerText = '';
+
+      if (hits === 8) {
+        btnCheck.style.display = 'none';
+        btnRetry.style.display = 'none';
+        attemptsInfo.innerText = 'Respuestas revisadas.';
+      } else {
+        if (quizAttempts === 1) {
+          btnCheck.style.display = 'none';
+          btnRetry.style.display = 'inline-flex';
+          attemptsInfo.innerText = "Te queda 1 oportunidad para corregir tus respuestas.";
+        } else {
+          btnCheck.style.display = 'none';
+          btnRetry.style.display = 'none';
+          attemptsInfo.innerText = "Has alcanzado el límite máximo de 2 intentos.";
+          disableQuizOptions();
+        }
+      }
+
+      updateProgress();
+      saveData();
     }
-  }
 
-  function resetData() {
-    if (confirm("¿Estás seguro de que deseas reiniciar todo el avance de la guía? Se borrarán tus respuestas.")) {
-      localStorage.removeItem('guide_sumo_data');
-      location.reload();
+    function retryQuiz() {
+      if (quizAttempts >= 2) return;
+
+      quizEvaluated = false;
+      userSelections = {};
+
+      // Limpiar estilos de opciones
+      for (let i = 1; i <= 8; i++) {
+        const container = document.getElementById(`opts-q${i}`);
+        const btns = container.querySelectorAll('.opt-btn');
+        btns.forEach(btn => {
+          btn.classList.remove('selected-option', 'correct', 'incorrect');
+        });
+      }
+
+      document.getElementById('quiz-global-feedback').innerText = '';
+      document.getElementById('btn-check-quiz').style.display = 'inline-flex';
+      document.getElementById('btn-retry-quiz').style.display = 'none';
+      document.getElementById('attempts-info').innerText = "Intento 2 de 2 (Última Oportunidad)";
+
+      updateProgress();
+      saveData();
     }
-  }
 
-  // EXPORTACIONES
-  function exportPDF() {
-    window.print();
-  }
+    function disableQuizOptions() {
+      for (let i = 1; i <= 8; i++) {
+        const container = document.getElementById(`opts-q${i}`);
+        const btns = container.querySelectorAll('.opt-btn');
+        btns.forEach(btn => btn.disabled = true);
+      }
+    }
 
-  function exportPNG() {
-    const element = document.getElementById('evidence-view');
-    const width = element.offsetWidth;
-    const height = element.offsetHeight;
+    // RETO FINAL - MATRIZ DE DIAGNÓSTICO
+    function checkRetoMatriz() {
+      const sintoma = document.getElementById('reto-sintoma').value;
+      const causa = document.getElementById('reto-causa').value;
+      const accion = document.getElementById('reto-accion').value;
+      const fb = document.getElementById('reto-feedback');
 
-    const clone = element.cloneNode(true);
-    const noPrints = clone.querySelectorAll('.no-print');
-    noPrints.forEach(el => el.remove());
+      if (sintoma === "s2" && causa === "c1" && accion === "a2") {
+        retoCorrect = true;
+        fb.className = "feedback correct";
+        fb.innerText = "✓ ¡Diagnóstico de Ingeniería Correcto! Has identificado con precisión la falla del sensor de suelo y su reprogramación.";
+      } else if (sintoma !== "" && causa !== "" && accion !== "") {
+        retoCorrect = false;
+        fb.className = "feedback incorrect";
+        fb.innerText = "✗ El diagnóstico técnico es incoherente. Revisa qué sensor detecta las líneas del suelo y su acción algorítmica.";
+      } else {
+        retoCorrect = false;
+        fb.innerText = "";
+      }
 
-    const htmlString = new XMLSerializer().serializeToString(clone);
-    const svgString = `
+      updateProgress();
+      saveData();
+    }
+
+    // CÁLCULO DE PROGRESO Y NOTA
+    function updateProgress() {
+      updateStepVisibility();
+      let totalItems = 11; // Cornell (1) + Lab (1) + 8 Quiz (8) + Reto (1)
+      let completedItems = 0;
+
+      // Cornell
+      if (document.getElementById('cornell-check').checked) completedItems++;
+
+      // Lab
+      const labIsCorrect = labVerified && JSON.stringify(currentLabOrder) === JSON.stringify(labCorrectOrder);
+      if (labIsCorrect) completedItems++;
+
+      // Quiz
+      let correctQuizCount = 0;
+      if (quizEvaluated) {
+        for (let i = 1; i <= 8; i++) {
+          if (userSelections[i] === correctQuizAnswers[i]) {
+            correctQuizCount++;
+          }
+        }
+        completedItems += Object.keys(userSelections).length;
+      } else {
+        completedItems += Object.keys(userSelections).length;
+      }
+
+      // Reto
+      if (retoCorrect) completedItems++;
+
+      const percent = Math.min(100, Math.round((completedItems / totalItems) * 100));
+      document.getElementById('progress-text').innerText = `${percent}%`;
+      document.getElementById('progress-fill').style.width = `${percent}%`;
+
+      // Nota (1.0 a 5.0)
+      let practicePoints = (labIsCorrect ? 1 : 0) + correctQuizCount; // max 9
+      let practiceScore = (practicePoints / 9) * 4.0 + 1.0;
+      let retoScore = retoCorrect ? 5.0 : 1.0;
+
+      let finalScore = (practiceScore * 0.7) + (retoScore * 0.3);
+      finalScore = Math.min(5.0, Math.max(1.0, finalScore)).toFixed(1);
+
+      // Evidencia Mode Updates
+      const studentName = document.getElementById('student-name').value || "No registrado";
+      const studentGrade = document.getElementById('student-grade').value;
+
+      document.getElementById('ev-name').innerText = studentName;
+      document.getElementById('ev-grade').innerText = studentGrade;
+      document.getElementById('ev-pc').innerText = document.getElementById('student-pc')?.value || "No especificado";
+
+      document.getElementById('ev-progress-num').innerText = `${percent}%`;
+      document.getElementById('ev-score-num').innerText = `${finalScore} / 5.0`;
+      document.getElementById('ev-cornell-status').innerText = document.getElementById('cornell-check').checked ? "✅ Completado" : "⏳ Pendiente";
+      document.getElementById('ev-lab-status').innerText = labIsCorrect ? "✅ Correcto" : "⏳ Pendiente / Incorrecto";
+      document.getElementById('ev-quiz-status').innerText = quizEvaluated
+        ? `${correctQuizCount} de 8 Aciertos (${2 - quizAttempts} oportunidades restantes)`
+        : `${Object.keys(userSelections).length} de 8 Respondidas (Sin comprobar)`;
+      document.getElementById('ev-reto-status').innerText = retoCorrect ? "✅ Diagnóstico Correcto" : "⏳ Pendiente / Incompleto";
+
+      // Envío automático al llegar al 100% de avance
+      if (percent === 100 && !datosEnviados) {
+        enviarResultados(studentName, studentGrade, finalScore);
+        datosEnviados = true;
+      }
+    }
+
+    // MODO EVIDENCIA
+    function showEvidenceMode() {
+      updateProgress();
+      document.getElementById('main-guide').style.display = 'none';
+      document.getElementById('evidence-view').style.display = 'block';
+      window.scrollTo(0, 0);
+    }
+
+    function hideEvidenceMode() {
+      document.getElementById('evidence-view').style.display = 'none';
+      document.getElementById('main-guide').style.display = 'block';
+      window.scrollTo(0, 0);
+    }
+
+    // LOCAL STORAGE
+    function saveData() {
+      const data = {
+        name: document.getElementById('student-name').value,
+        grade: document.getElementById('student-grade').value,
+        pc: document.getElementById('student-pc')?.value || '',
+        readingComplete: document.getElementById('reading-check').checked,
+        cornell: document.getElementById('cornell-check').checked,
+        labOrder: currentLabOrder,
+        labVerified: labVerified,
+        userSelections: userSelections,
+        quizAttempts: quizAttempts,
+        quizEvaluated: quizEvaluated,
+        sintoma: document.getElementById('reto-sintoma').value,
+        causa: document.getElementById('reto-causa').value,
+        accion: document.getElementById('reto-accion').value,
+        datosEnviados: datosEnviados
+      };
+      localStorage.setItem('guide_sumo_data', JSON.stringify(data));
+    }
+
+    function loadData() {
+      const saved = localStorage.getItem('guide_sumo_data');
+      if (!saved) return;
+      try {
+        const data = JSON.parse(saved);
+        if (data.grade) document.getElementById('student-grade').value = data.grade;
+        updateStudentList(data.name || '');
+        const studentPc = document.getElementById('student-pc');
+        if (data.pc && studentPc) studentPc.value = data.pc;
+        if (data.readingComplete) document.getElementById('reading-check').checked = data.readingComplete;
+        if (data.cornell) document.getElementById('cornell-check').checked = data.cornell;
+        if (data.labOrder) currentLabOrder = data.labOrder;
+        if (data.labVerified) labVerified = data.labVerified;
+
+        if (data.userSelections) userSelections = data.userSelections;
+        if (data.quizAttempts) quizAttempts = data.quizAttempts;
+        if (data.quizEvaluated) quizEvaluated = data.quizEvaluated;
+
+        if (data.sintoma) document.getElementById('reto-sintoma').value = data.sintoma;
+        if (data.causa) document.getElementById('reto-causa').value = data.causa;
+        if (data.accion) document.getElementById('reto-accion').value = data.accion;
+        if (data.datosEnviados) datosEnviados = data.datosEnviados;
+
+        renderLabList();
+        checkRetoMatriz();
+
+        // Restaurar estado visual del quiz
+        if (quizEvaluated) {
+          checkAllQuiz();
+        } else {
+          Object.keys(userSelections).forEach(qId => {
+            selectQuizOption(parseInt(qId), userSelections[qId]);
+          });
+        }
+
+      } catch (e) {
+        console.error("Error al cargar datos guardados", e);
+      }
+    }
+
+    function resetData() {
+      if (confirm("¿Estás seguro de que deseas reiniciar todo el avance de la guía? Se borrarán tus respuestas.")) {
+        localStorage.removeItem('guide_sumo_data');
+        location.reload();
+      }
+    }
+
+    // EXPORTACIONES
+    function exportPDF() {
+      window.print();
+    }
+
+    function exportPNG() {
+      const element = document.getElementById('evidence-view');
+      const width = element.offsetWidth;
+      const height = element.offsetHeight;
+
+      const clone = element.cloneNode(true);
+      const noPrints = clone.querySelectorAll('.no-print');
+      noPrints.forEach(el => el.remove());
+
+      const htmlString = new XMLSerializer().serializeToString(clone);
+      const svgString = `
       <svg xmlns="http://www.w3.org/2000/svg" width="${width}" height="${height}">
         <foreignObject width="100%" height="100%">
           <div xmlns="http://www.w3.org/1999/xhtml" style="background: white; padding: 20px; font-family: system-ui, sans-serif;">
@@ -1270,30 +1568,31 @@
       </svg>
     `;
 
-    const svgBlob = new Blob([svgString], { type: 'image/svg+xml;charset=utf-8' });
-    const URL = window.URL || window.webkitURL || window;
-    const blobURL = URL.createObjectURL(svgBlob);
+      const svgBlob = new Blob([svgString], { type: 'image/svg+xml;charset=utf-8' });
+      const URL = window.URL || window.webkitURL || window;
+      const blobURL = URL.createObjectURL(svgBlob);
 
-    const image = new Image();
-    image.onload = function() {
-      const canvas = document.createElement('canvas');
-      canvas.width = width;
-      canvas.height = height;
-      const context = canvas.getContext('2d');
-      context.fillStyle = "#ffffff";
-      context.fillRect(0, 0, width, height);
-      context.drawImage(image, 0, 0);
+      const image = new Image();
+      image.onload = function () {
+        const canvas = document.createElement('canvas');
+        canvas.width = width;
+        canvas.height = height;
+        const context = canvas.getContext('2d');
+        context.fillStyle = "#ffffff";
+        context.fillRect(0, 0, width, height);
+        context.drawImage(image, 0, 0);
 
-      const png = canvas.toDataURL('image/png');
-      const downloadLink = document.createElement('a');
-      downloadLink.href = png;
-      downloadLink.download = `Evidencia_Robots_Sumo_${document.getElementById('student-name').value || 'Estudiante'}.png`;
-      document.body.appendChild(downloadLink);
-      downloadLink.click();
-      document.body.removeChild(downloadLink);
-    };
-    image.src = blobURL;
-  }
-</script>
+        const png = canvas.toDataURL('image/png');
+        const downloadLink = document.createElement('a');
+        downloadLink.href = png;
+        downloadLink.download = `Evidencia_Robots_Sumo_${document.getElementById('student-name').value || 'Estudiante'}.png`;
+        document.body.appendChild(downloadLink);
+        downloadLink.click();
+        document.body.removeChild(downloadLink);
+      };
+      image.src = blobURL;
+    }
+  </script>
 </body>
+
 </html>
